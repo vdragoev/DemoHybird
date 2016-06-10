@@ -1,0 +1,45 @@
+{
+  "ProjectName": "Demo Hybrid",
+  "ProjectGuid": "a525559e-53ca-42f2-bf5c-c0eafa6ef5d1",
+  "projectVersion": 1,
+  "AppIdentifier": "com.telerik.DemoHybrid",
+  "DisplayName": "Demo Hybrid",
+  "Author": "",
+  "Description": "Demo Hybrid",
+  "BundleVersion": "1.0",
+  "AndroidVersionCode": "1",
+  "iOSDeviceFamily": [
+    "1",
+    "2"
+  ],
+  "iOSBackgroundMode": [],
+  "ProjectTypeGuids": "{070BCB52-5A75-4F8C-A973-144AF0EAFCC9}",
+  "FrameworkVersion": "4.0.0",
+  "AndroidPermissions": [
+    "android.permission.INTERNET"
+  ],
+  "DeviceOrientations": [
+    "Portrait",
+    "Landscape"
+  ],
+  "AndroidHardwareAcceleration": "true",
+  "iOSStatusBarStyle": "Default",
+  "Framework": "Cordova",
+  "WP8TileTitle": "",
+  "WP8Publisher": "",
+  "WP8Capabilities": [
+    "ID_CAP_NETWORKING",
+    "ID_CAP_WEBBROWSERCOMPONENT"
+  ],
+  "WP8Requirements": [],
+  "WP8PublisherID": "{b38af834-be68-49c0-add6-28563e3f38e2}",
+  "WP8ProductID": "{2923be14-8911-42b3-b80e-cd18a524cd0b}",
+  "WPSdk": "8.0",
+  "WP8PackageIdentityName": "1234Telerik.DemoHybrid",
+  "WP8WindowsPublisherName": "CN=Telerik",
+  "WP8SupportedResolutions": [
+    "ID_RESOLUTION_WVGA",
+    "ID_RESOLUTION_WXGA",
+    "ID_RESOLUTION_HD720P"
+  ]
+}
