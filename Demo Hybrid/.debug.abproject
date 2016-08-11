@@ -1,5 +1,7 @@
 {
   "CorePlugins": [
+    "com.telerik.LivePatch",
+    "com.telerik.plugin.telerikanalytics@3.4.1",
     "cordova-plugin-battery-status",
     "cordova-plugin-camera",
     "cordova-plugin-console",

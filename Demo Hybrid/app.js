@@ -8,9 +8,8 @@
     var bootstrap = function() {
         $(function() {
             app.mobileApp = new kendo.mobile.Application(document.body, {
-                transition: 'slide',
                 skin: 'nova',
-                initial: 'components/home/view.html'
+                initial: 'components/authenticationView/view.html'
             });
         });
     };
@@ -20,6 +19,20 @@
             if (navigator && navigator.splashscreen) {
                 navigator.splashscreen.hide();
             }
+
+            var element = document.getElementById('appDrawer');
+            if (typeof(element) != 'undefined' && element !== null) {
+                if (window.navigator.msPointerEnabled) {
+                    $('#navigation-container').on('MSPointerDown', 'a', function(event) {
+                        app.keepActiveState($(this));
+                    });
+                } else {
+                    $('#navigation-container').on('touchstart', 'a', function(event) {
+                        app.keepActiveState($(this).closest('li'));
+                    });
+                }
+            }
+
             bootstrap();
         }, false);
     } else {
@@ -54,37 +67,6 @@
         }
     };
 
-    app.onShowMore = function() {
-        var navigation_show_more_view = $("#navigation-show-more-view");
-
-        navigation_show_more_view.find("ul").html($("#navigation-container-more").html());
-
-        navigation_show_more_view.find("ul a").each(function(index) {
-            var icon = '<span class="km-icon km-' + $(this).data('icon') + '"></span>',
-                text = '<span class="km-text">' + $(this).text() + '</span>';
-
-            $(this).html(icon + text).addClass('km-listview-link').attr('data-role', 'listview-link').wrap("<li></li>");
-        });
-
-        $("#more-view-back").off("click").on("click", function() {
-            $("#navigation-show-more-view").hide();
-        })
-    };
-
-    app.afterShowMore = function() {
-        var navigation_show_more_view = $("#navigation-show-more-view");
-
-        navigation_show_more_view.find("li").off('click touchend').on('click touchend', function() {
-            navigation_show_more_view.hide();
-            $('.km-tabstrip .km-state-active').removeClass('km-state-active');
-        });
-    };
-
-    app.clickMore = function(e) {
-        app.onShowMore();
-        $("#navigation-show-more-view").show();
-        app.afterShowMore();
-    };
 }());
 
 // START_CUSTOM_CODE_kendoUiMobileApp

@@ -1,0 +1,46 @@
+<div data-role="view" data-stretch="true" data-hide="app.coffeeShops.onHide" data-title="Coffee Shops" data-layout="main-nonav" data-model="app.coffeeShops" data-show="app.coffeeShops.onShow" data-after-show="app.coffeeShops.afterShow">
+
+    <!-- START_CUSTOM_CODE_coffeeShops -->
+    <!-- Add custom code here. For more information about custom code, see http://docs.telerik.com/platform/screenbuilder/troubleshooting/how-to-keep-custom-code-changes -->
+
+    <!-- END_CUSTOM_CODE_coffeeShops -->
+    <header data-role="header">
+        <div data-role="navbar" class="header-text">
+            <a data-role="backbutton" data-align="left" class="backButtonWrapper" style="display: none;">Back</a>
+            <span data-role="view-title"></span>
+
+            <a data-role="button" href="#appDrawer" data-rel="drawer" data-align="left" data-icon="drawer-button"></a>
+
+
+            <a data-role="button" data-align="right" data-bind="events: { click: coffeeShopsModel.addClick }">Add</a>
+
+        </div>
+    </header>
+
+
+    <div id="coffeeShopsModelMap" class="map"></div>
+
+    <div class="map-details details-content" data-bind="click: coffeeShopsModel.itemClick, visible: coffeeShopsModel.itemDetailsVisible">
+        <h3 data-bind="text: coffeeShopsModel.originalItem.Name"></h3>
+
+    </div>
+
+
+    <!-- START_CUSTOM_CODE_coffeeShopsModel -->
+    <!-- Add custom code here. For more information about custom code, see http://docs.telerik.com/platform/screenbuilder/troubleshooting/how-to-keep-custom-code-changes -->
+
+    <!-- END_CUSTOM_CODE_coffeeShopsModel -->
+    <script type="text/x-kendo-template" id="coffeeShopsModelTemplate">
+        <div class="image-with-text">
+            # data = app.coffeeShops.coffeeShopsModel.fixHierarchicalData(data); #
+
+            <h3>#: data['Name'] #</h3>
+
+        </div>
+        <div class="editableListItem">
+
+            <div>Open Now:</div>
+            <div>#= data['OpenClosedNow'] #</div>
+        </div>
+    </script>
+</div>

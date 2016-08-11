@@ -1,0 +1,36 @@
+<div data-role="view" data-title="Coffee Shops by Location" data-layout="main" data-model="app.coffeeShopsLocation" data-show="app.coffeeShopsLocation.onShow" data-after-show="app.coffeeShopsLocation.afterShow">
+
+    <!-- START_CUSTOM_CODE_coffeeShopsLocation -->
+    <!-- Add custom code here. For more information about custom code, see http://docs.telerik.com/platform/screenbuilder/troubleshooting/how-to-keep-custom-code-changes -->
+
+    <!-- END_CUSTOM_CODE_coffeeShopsLocation -->
+    <header data-role="header">
+        <div data-role="navbar" class="header-text">
+            <a data-role="backbutton" data-align="left" class="backButtonWrapper" style="display: none;">Back</a>
+            <span data-role="view-title"></span>
+
+            <a data-role="button" href="#appDrawer" data-rel="drawer" data-align="left" data-icon="drawer-button"></a>
+
+
+        </div>
+    </header>
+
+
+    <ul class="masterDetailView" data-role="listview" data-auto-bind="false" data-style="inset" data-template="coffeeShopsLocationModelTemplate" data-bind="{ source: coffeeShopsLocationModel.dataSource, events: {click: coffeeShopsLocationModel.itemClick} }"
+    data-pull-to-refresh="true" data-endless-scroll="false">
+    </ul>
+
+
+    <!-- START_CUSTOM_CODE_coffeeShopsLocationModel -->
+    <!-- Add custom code here. For more information about custom code, see http://docs.telerik.com/platform/screenbuilder/troubleshooting/how-to-keep-custom-code-changes -->
+
+    <!-- END_CUSTOM_CODE_coffeeShopsLocationModel -->
+    <script type="text/x-kendo-template" id="coffeeShopsLocationModelTemplate">
+        <div class="image-with-text">
+            # data = app.coffeeShopsLocation.coffeeShopsLocationModel.fixHierarchicalData(data); #
+
+            <h3>#: data['Country'] #</h3>
+
+        </div>
+    </script>
+</div>

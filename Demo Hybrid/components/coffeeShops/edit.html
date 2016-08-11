@@ -1,0 +1,49 @@
+<div data-role="view" data-title="Edit" data-model="app.coffeeShops.editItemViewModel" data-bind="events: { show: onShow }" id="coffeeShopsModelEditItemView">
+    <header data-role="header">
+        <div data-role="navbar" class="header-text">
+            <span data-bind="text: itemData['Name']"></span>
+            <a data-role="backbutton" data-align="left">Cancel</a>
+            <a data-role="button" data-align="right" data-bind="events: { click: onSaveClick }">Save</a>
+        </div>
+    </header>
+    <!-- START_CUSTOM_CODE_coffeeShopsModel -->
+    <!-- END_CUSTOM_CODE_coffeeShopsModel -->
+    <div id="editableListForm70" class="form-view">
+        <form>
+            <ul class="form-content" data-role="listview" data-style="inset">
+                <li class="form-content-item">
+
+                    <label>
+
+                        <span>Shop Name</span>
+
+                        <input id="shopName" data-bind="value: editFormData.shopName" placeholder="Shop name ..." type="text">
+                    </label>
+
+                </li>
+                <li class="form-content-item">
+
+                    <label>
+
+                        <span>Shop address</span>
+
+                        <input id="shopAddresses" data-bind="value: editFormData.shopAddresses" placeholder="Shop address ..." type="text">
+                    </label>
+
+                </li>
+                <li class="form-content-item">
+
+                    <label>
+
+                        <span>Open Now</span>
+
+                        <input id="openNowOrClosed" data-bind="value: editFormData.openNowOrClosed" type="checkbox">
+                    </label>
+
+                </li>
+            </ul>
+        </form>
+        <!-- START_CUSTOM_CODE_editableListForm70 -->
+        <!-- END_CUSTOM_CODE_editableListForm70 -->
+    </div>
+</div>

@@ -3,19 +3,238 @@
   "views": [
     {
       "type": "kendo-ui-mobile:view",
-      "name": "home",
-      "components": [],
-      "title": "Home View",
+      "name": "authenticationView",
+      "components": [
+        {
+          "type": "kendo-ui-mobile:authentication",
+          "name": "authenticationViewModel",
+          "dataProvider": "sitefinityDataProvider",
+          "emailLabel": "Email",
+          "passwordLabel": "Password",
+          "signinLabel": "Sign In",
+          "signinRedirect": "coffeeShopsLocation",
+          "enableRegistration": false,
+          "enableLogout": true,
+          "logoutLabel": "Sign Out",
+          "enableRememberme": true,
+          "remembermeLabel": "Remember Me"
+        }
+      ],
+      "title": "Authentication",
+      "addToNavigation": false
+    },
+    {
+      "type": "kendo-ui-mobile:view",
+      "name": "coffeeShopsLocation",
+      "components": [
+        {
+          "type": "kendo-ui-mobile:editableList",
+          "listExtraFields": [],
+          "detailExtraFields": [],
+          "components": [],
+          "name": "coffeeShopsLocationModel",
+          "dataProvider": "testJiterz",
+          "collection": "CoffeeShopsByCountry",
+          "headerField": "Country",
+          "isMapView": false,
+          "pullToRefresh": true,
+          "endlessScroll": false,
+          "deleteItemButton": false,
+          "detailHeaderFieldSource": "static",
+          "detailHeaderFieldValue": "Detail",
+          "addItemForm": false,
+          "editItemForm": false,
+          "itemActionView": "coffeeShops",
+          "itemActionPrimaryKey": "Id",
+          "itemActionSecondaryKey": "CoffeeShopByCountry"
+        }
+      ],
+      "title": "Coffee Shops by Location",
       "addToNavigation": true,
-      "icon": "home"
+      "icon": "globe"
+    },
+    {
+      "type": "kendo-ui-mobile:view",
+      "name": "coffeeShops",
+      "components": [
+        {
+          "type": "kendo-ui-mobile:editableList",
+          "listExtraFields": [],
+          "detailExtraFields": [],
+          "components": [
+            {
+              "type": "kendo-ui-mobile:editableListForm",
+              "components": [
+                {
+                  "type": "kendo-ui-mobile:editableListFormField",
+                  "name": "openNowOrClosed",
+                  "dataBindingRelationChildren": "[]",
+                  "title": "Open Now:",
+                  "inputType": "shortText",
+                  "dataBindingOptional": "OpenClosedNow"
+                }
+              ],
+              "name": "editableListForm67",
+              "formType": "list"
+            },
+            {
+              "type": "kendo-ui-mobile:editableListForm",
+              "components": [
+                {
+                  "type": "kendo-ui-mobile:editableListFormField",
+                  "name": "openNowOrClosed",
+                  "dataBindingRelationChildren": "[]",
+                  "title": "Open Now:",
+                  "inputType": "shortText",
+                  "dataBindingOptional": "OpenClosedNow"
+                },
+                {
+                  "type": "kendo-ui-mobile:editableListFormField",
+                  "name": "image",
+                  "dataBindingRelationChildren": "[]",
+                  "title": "Image",
+                  "inputType": "image",
+                  "titlePosition": "left",
+                  "alignment": "left",
+                  "imageUpload": "download.jpg"
+                },
+                {
+                  "type": "kendo-ui-mobile:editableListFormField",
+                  "name": "coffeeDrinks",
+                  "dataBindingRelationChildren": "[{\"expand\":\"Drink\",\"property\":\"Drinks\",\"type\":\"CoffeeDrinks\",\"isArray\":true}]",
+                  "title": "Coffee Drinks",
+                  "inputType": "dataList",
+                  "wideFieldTitlePosition": "top",
+                  "dataBindingRelationParent": "Drinks"
+                }
+              ],
+              "name": "editableListForm68",
+              "formType": "detail"
+            },
+            {
+              "type": "kendo-ui-mobile:editableListForm",
+              "components": [
+                {
+                  "type": "kendo-ui-mobile:editableListFormField",
+                  "name": "shopName",
+                  "dataBindingRelationChildren": "[]",
+                  "title": "Shop Name",
+                  "inputType": "text",
+                  "titlePosition": "left",
+                  "placeholder": "Shop name ...",
+                  "dataBinding": "Name"
+                },
+                {
+                  "type": "kendo-ui-mobile:editableListFormField",
+                  "name": "shopAddresses",
+                  "dataBindingRelationChildren": "[]",
+                  "title": "Shop address",
+                  "inputType": "text",
+                  "titlePosition": "left",
+                  "placeholder": "Shop address ...",
+                  "dataBinding": "Address"
+                },
+                {
+                  "type": "kendo-ui-mobile:editableListFormField",
+                  "name": "openNowOrClosed",
+                  "dataBindingRelationChildren": "[]",
+                  "title": "Open Now",
+                  "inputType": "checkbox",
+                  "dataBinding": "OpenClosedNow"
+                }
+              ],
+              "name": "editableListForm70",
+              "formType": "edit"
+            },
+            {
+              "type": "kendo-ui-mobile:editableListForm",
+              "components": [
+                {
+                  "type": "kendo-ui-mobile:editableListFormField",
+                  "name": "shopName",
+                  "dataBindingRelationChildren": "[]",
+                  "title": "Shop Name",
+                  "inputType": "text",
+                  "titlePosition": "left",
+                  "placeholder": "Shop name ...",
+                  "dataBinding": "Name"
+                },
+                {
+                  "type": "kendo-ui-mobile:editableListFormField",
+                  "name": "shopAddresses",
+                  "dataBindingRelationChildren": "[]",
+                  "title": "Shop Address",
+                  "inputType": "text",
+                  "titlePosition": "left",
+                  "placeholder": "Shop address ...",
+                  "dataBinding": "Address"
+                },
+                {
+                  "type": "kendo-ui-mobile:editableListFormField",
+                  "name": "openNowOrClosed",
+                  "dataBindingRelationChildren": "[]",
+                  "title": "Label",
+                  "inputType": "checkbox",
+                  "dataBinding": "OpenClosedNow"
+                }
+              ],
+              "name": "editableListForm69",
+              "formType": "add"
+            }
+          ],
+          "name": "coffeeShopsModel",
+          "dataProvider": "testJiterz",
+          "collection": "CoffeeShops",
+          "headerField": "Name",
+          "isMapView": true,
+          "mapApiKey": "pk.eyJ1IjoidmRyYWdvZXYiLCJhIjoiY2lvY3R3NnR6MDA2bHdjbTVjNTM2N3NsayJ9.uAmfrn1-RB74TWFFg5ASjQ",
+          "geoPointField": "Location",
+          "pullToRefresh": true,
+          "endlessScroll": false,
+          "deleteItemButton": true,
+          "deleteItemConfirmation": true,
+          "detailHeaderFieldSource": "dataBound",
+          "detailHeaderField": "Name",
+          "detailSubHeaderField": "Address",
+          "addItemForm": true,
+          "addScreenHeaderValue": "Add a Shop",
+          "editItemForm": true,
+          "editScreenHeaderSource": "dataBound",
+          "editScreenHeaderField": "Name"
+        }
+      ],
+      "title": "Coffee Shops",
+      "addToNavigation": false
     }
   ],
-  "dataProviders": [],
+  "dataProviders": [
+    {
+      "type": "kendo-ui-mobile:dataProvider",
+      "name": "testJiterz",
+      "title": "Test Jiterz / Test Jiterz",
+      "source": "everlive",
+      "everliveKey": "1a58lmbsa32gco9w",
+      "offlineStorage": true
+    },
+    {
+      "type": "kendo-ui-mobile:dataProvider",
+      "name": "demoHybrid",
+      "title": "Demo Hybrid / Demo Hybrid",
+      "source": "everlive",
+      "everliveKey": "6kcd6ct4mb6gp1p6",
+      "offlineStorage": true
+    },
+    {
+      "type": "kendo-ui-mobile:dataProvider",
+      "name": "sitefinityDataProvider",
+      "title": "Sitefinity Data Service",
+      "source": "sitefinity",
+      "url": "https://ssldbpsandbox.cloudapp.net/api/default"
+    }
+  ],
   "name": "kendoUiMobileApp",
-  "navigation": "tabstrip",
-  "view": "home",
-  "transition": "slide",
-  "showMoreTab": true,
+  "navigation": "drawer",
+  "view": "authenticationView",
   "skin": "nova",
   "skinMainColor": "#32364c",
   "skinTextColor": "#ffffff",

@@ -2,6 +2,8 @@
 <html>
 
 <head>
+    <script src="bower_components/leaflet/dist/leaflet.js"></script>
+    <link href="bower_components/leaflet/dist/leaflet.css" rel="stylesheet">
     <title></title>
     <meta charset="utf-8">
     <link href="kendo/styles/kendo.mobile.all.min.css" rel="stylesheet">
@@ -13,42 +15,24 @@
     <script src="kendo/js/jquery.min.js"></script>
     <script src="kendo/js/kendo.mobile.min.js"></script>
     <script src="app.js"></script>
+    <script src="bower_components/everlive/min/everlive.all.min.js"></script>
+    <script src="dataProviders/testJiterz.js"></script>
+    <script src="dataProviders/demoHybrid.js"></script>
+    <script src="lib/sitefinity/sitefinity-webservices-sdk.min.js"></script>
+    <script src="dataProviders/sitefinityDataProvider.js"></script>
 </head>
 
 <body id="kendoUiMobileApp">
-    <script src="components/home/index.js"></script>
+    <script src="components/coffeeShops/index.js"></script>
+    <script src="components/coffeeShopsLocation/index.js"></script>
+    <script src="components/authenticationView/index.js"></script>
     <div data-role="layout" data-id="main">
         <header data-role="header">
             <div data-role="navbar">
                 <span data-role="view-title"></span>
+                <a data-role="button" href="#appDrawer" data-rel="drawer" data-align="left" data-icon="drawer-button"></a>
             </div>
         </header>
-        <footer data-role="footer">
-            <div data-role="tabstrip" id="navigation-container">
-                <a href="components/home/view.html" data-icon="home">Home View</a>
-            </div>
-            <div id="navigation-container-more" style="display: none">
-            </div>
-        </footer>
-    </div>
-
-
-    <div id="navigation-show-more-view">
-        <header class="km-header">
-            <div class="header-text km-widget km-navbar">
-                <div class="km-leftitem">
-                    <a class="km-widget km-button km-back" id="more-view-back">
-                        <span class="km-text">Back</span>
-                    </a>
-                </div>
-                <div class="km-view-title">
-                    <span>Show More</span>
-                </div>
-            </div>
-        </header>
-
-        <ul data-role="listview" data-style="inset" class="km-widget km-listview km-list km-listinset">
-        </ul>
     </div>
 
     <div data-role="layout" data-id="main-nonav">
@@ -57,8 +41,19 @@
                 <span data-role="view-title"></span>
             </div>
         </header>
-        <footer data-role="footer">
-        </footer>
+    </div>
+
+    <div id="appDrawer" data-role="drawer" data-title="Navigation">
+        <header data-role="header">
+            <div data-role="navbar">
+                <span data-role="view-title"></span>
+            </div>
+        </header>
+        <ul id="navigation-container" data-role="listview">
+
+            <li><a href="components/coffeeShopsLocation/view.html" data-icon="globe">Coffee Shops by Location</a></li>
+            <li id="authenticationViewModellogout"><a href="components/authenticationView/view.html?logout=true" data-position="end" data-icon="action">Sign Out</a></li>
+        </ul>
     </div>
     <!-- START_CUSTOM_CODE_kendoUiMobileApp -->
     <!-- Add custom code here. For more information about custom code, see http://docs.telerik.com/platform/screenbuilder/troubleshooting/how-to-keep-custom-code-changes -->
