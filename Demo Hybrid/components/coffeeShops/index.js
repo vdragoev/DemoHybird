@@ -224,8 +224,24 @@ app.coffeeShops = kendo.observable({
                 }
             },
             serverFiltering: true,
+            serverSorting: true,
+            sort: {
+                field: 'CreatedAt',
+                dir: 'asc'
+            },
         },
         dataSource = new kendo.data.DataSource(dataSourceOptions),
+        // start data sources
+
+        coffeeDrinksDataSource = new kendo.data.DataSource({
+            type: 'everlive',
+            transport: {
+                typeName: 'CoffeeDrinks',
+                dataProvider: dataProvider
+            }
+        }),
+        // end data sources
+
         coffeeShopsModel = kendo.observable({
             dataSource: dataSource,
             fixHierarchicalData: function(data) {
@@ -357,37 +373,148 @@ app.coffeeShops = kendo.observable({
         });
 
     parent.set('addItemViewModel', kendo.observable({
+        // start add model properties
+
+        coffeeDrinksDataSource: coffeeDrinksDataSource,
+        // end add model properties
+
+        // start add model functions
+        // end add model functions
         onShow: function(e) {
             // Reset the form data.
             this.set('addFormData', {
                 openNowOrClosed: '',
                 shopAddresses: '',
                 shopName: '',
+                // start add form data init
+
+                cofDrinks: [],
+                // end add form data init
+
             });
+            // start add form show
+
+            this.coffeeDrinksDataSource.read();
+            // end add form show
+
+            //addItemViewModel insert functionality
+        },
+        onCancel: function() {
+            app.clearFormDomData('add-item-view');
         },
         onSaveClick: function(e) {
             var addFormData = this.get('addFormData'),
-                addModel = {
-                    OpenClosedNow: addFormData.openNowOrClosed,
-                    Address: addFormData.shopAddresses,
-                    Name: addFormData.shopName,
-                },
                 filter = coffeeShopsModel && coffeeShopsModel.get('paramFilter'),
-                dataSource = coffeeShopsModel.get('dataSource');
+                dataSource = coffeeShopsModel.get('dataSource'),
+                addModel = {};
 
-            dataSource.add(addModel);
-            dataSource.one('change', function(e) {
-                app.mobileApp.navigate('#:back');
-            });
+            function saveModel(data) {
+                addModel.OpenClosedNow = !!addFormData.openNowOrClosed;
+                addModel.Address = addFormData.shopAddresses;
+                addModel.Name = addFormData.shopName;
+                // start add form data save
 
-            dataSource.sync();
+                addModel.Drinks = addFormData.cofDrinks;
+                // end add form data save
+
+                dataSource.add(addModel);
+                dataSource.one('change', function(e) {
+                    app.mobileApp.navigate('#:back');
+                });
+
+                dataSource.sync();
+            };
+
+            // on save
+            saveModel();
         }
     }));
 
     parent.set('editItemViewModel', kendo.observable({
-        editFormData: {},
+        // start edit model properties
+
+        coffeeDrinksDataSource: coffeeDrinksDataSource,
+
+        coDrinksCache: [],
+        coDrinksSelected: '',
+
+        // end edit model properties
+
+        // start edit model functions
+
+        onDrinksSelectOpen: function(e) {
+            var widgetElement = e.sender.element.closest(".km-widget.km-modalview"),
+                fieldId = widgetElement.data('field-id'),
+                selectedIds = this.editFormData[fieldId];
+
+            this.set(fieldId + 'Cache', selectedIds.slice());
+        },
+        onDrinksSelectDone: function(e) {
+            var target = $(e.target),
+                widgetElement = target.closest(".km-widget.km-modalview"),
+                fieldId = widgetElement.data('field-id'),
+                selectedIds = this[fieldId + 'Cache'];
+
+            this.editFormData.set(fieldId, selectedIds);
+            this.set(fieldId + 'Cache', []);
+            this.initSelectedDrinksText(fieldId, selectedIds);
+
+            widgetElement.data('kendoMobileModalView').close();
+        },
+        initSelectedDrinksText: function(fieldId, selectedIds) {
+            var selectedTexts = [],
+                items = this.coffeeDrinksDataSource.data(),
+                i, j;
+
+            for (i = 0; i < selectedIds.length; i++) {
+                for (j = 0; j < items.length; j++) {
+                    if (selectedIds[i] === items[j].Id) {
+                        selectedTexts.push(items[j].Drink);
+                    }
+                }
+            }
+
+            this.set(fieldId + 'Selected', selectedTexts.join(', '));
+        },
+        onDrinksSelectCancel: function(e) {
+            var target = $(e.target),
+                widgetElement = target.closest(".km-widget.km-modalview"),
+                fieldId = widgetElement.data('field-id');
+
+            this.set(fieldId + 'Cache', []);
+
+            widgetElement.data('kendoMobileModalView').close();
+        },
+
+        mapIds: function(data) {
+            var i, result = [];
+
+            data = data || [];
+
+            for (i = 0; i < data.length; i++) {
+                result.push(data[i].Id);
+            }
+
+            return result;
+        },
+        mapData: function(ids, data) {
+            var i, j, result = [];
+
+            for (i = 0; i < ids.length; i++) {
+                for (j = 0; j < data.length; j++) {
+                    if (data[j].Id === ids[i]) {
+                        result.push(data[j]);
+                    }
+                }
+            }
+
+            return result;
+        },
+        // end edit model functions
+
         onShow: function(e) {
-            var itemUid = e.view.params.uid,
+            var that = this,
+                itemUid = e.view.params.uid,
                 dataSource = coffeeShopsModel.get('dataSource'),
                 itemData = dataSource.getByUid(itemUid),
                 fixedData = coffeeShopsModel.fixHierarchicalData(itemData);
@@ -397,31 +524,65 @@ app.coffeeShops = kendo.observable({
                 openNowOrClosed: itemData.OpenClosedNow,
                 shopAddresses: itemData.Address,
                 shopName: itemData.Name,
+                // start edit form data init
+
+                coDrinks: this.mapIds(itemData.Drinks),
+                // end edit form data init
+
             });
+            // start edit form show
+
+            this.coffeeDrinksDataSource.read().then(function() {
+                that.initSelectedDrinksText('coDrinks', that.editFormData.coDrinks);
+            });
+
+            // end edit form show
+
+            //editItemViewModel insert functionality
         },
+        editFormData: {},
         linkBind: function(linkString) {
             var linkChunks = linkString.split(':');
             return linkChunks[0] + ':' + this.get("itemData." + linkChunks[1]);
         },
         onSaveClick: function(e) {
-            var editFormData = this.get('editFormData'),
+            var that = this,
+                editFormData = this.get('editFormData'),
                 itemData = this.get('itemData'),
                 dataSource = coffeeShopsModel.get('dataSource');
 
-            // prepare edit
-            itemData.set('OpenClosedNow', editFormData.openNowOrClosed);
+            // edit properties
+            itemData.set('OpenClosedNow', !!editFormData.openNowOrClosed);
             itemData.set('Address', editFormData.shopAddresses);
             itemData.set('Name', editFormData.shopName);
+            // start edit form data save
 
-            dataSource.one('sync', function(e) {
-                app.mobileApp.navigate('#:back');
-            });
+            itemData.set('Drinks', editFormData.coDrinks);
+            // end edit form data save
 
-            dataSource.one('error', function() {
-                dataSource.cancelChanges(itemData);
-            });
+            function editModel(indexes, data) {
+                // edit model save properties
+                dataSource.one('sync', function(e) {
+                    // start edit form data save success
 
-            dataSource.sync();
+                    itemData.set('Drinks', that.mapData(editFormData.coDrinks, that.coffeeDrinksDataSource.data()));
+                    // end edit form data save success
+
+                    app.mobileApp.navigate('#:back');
+                });
+
+                dataSource.one('error', function() {
+                    dataSource.cancelChanges(itemData);
+                });
+
+                dataSource.sync();
+            };
+
+            // prepare edit
+            editModel();
+        },
+        onCancel: function() {
+            app.clearFormDomData('edit-item-view');
         }
     }));
 

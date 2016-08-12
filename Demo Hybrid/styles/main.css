@@ -136,6 +136,13 @@
     padding-right: 10px;
 }
 
+#kendoUiMobileApp .km-content li label:not(.km-label-above) > span:not(.km-widget):last-child,
+#kendoUiMobileApp .editableListItem > div:last-child,
+#kendoUiMobileApp .editableListItem:not(.km-label-above) > div:last-child,
+#kendoUiMobileApp .imageListItem:not(.km-label-above) > div:last-child {
+    padding-right: 0;
+}
+
 #kendoUiMobileApp .editableListItem.km-label-above > div,
 #kendoUiMobileApp .imageListItem.km-label-above > div {
     width: 100%;
@@ -204,17 +211,6 @@
 
 #kendoUiMobileApp .align-center {
     text-align: center;
-}
-
-#navigation-show-more-view {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    left: 0;
-    z-index: 20000;
-    display: none;
-    visibility: visible;
 }
 
 
@@ -293,23 +289,20 @@
 
 /*List View with relation data*/
 
-#kendoUiMobileApp .dataListField ul li {
+#kendoUiMobileApp .dataListField > li {
     list-style: none;
-}
-
-#kendoUiMobileApp .dataListField li ul + div,
-#kendoUiMobileApp .detail-content-item .dataListField > li ul + div,
-#kendoUiMobileApp .detail-content-item .dataListField > li ul li + li,
-#kendoUiMobileApp .form-content-item .dataListField > li ul + div,
-#kendoUiMobileApp .form-content-item .dataListField > li ul li + li {
-    margin-left: 1em;
 }
 
 #kendoUiMobileApp .dataListField li {
     list-style-position: inside;
 }
 
+#kendoUiMobileApp .dataListField li > span {
+    margin-right: 5px;
+}
+
 #kendoUiMobileApp .dataListField,
+#kendoUiMobileApp .dataListField > li > ul,
 #kendoUiMobileApp .detail-content-item .dataListField > li > ul,
 #kendoUiMobileApp .form-content-item .dataListField > li > ul {
     padding: 0;
@@ -321,6 +314,144 @@
     margin-top: 0.5em;
     margin-bottom: 0.5em;
 }
+
+
+/*File Upload*/
+
+#kendoUiMobileApp .fileUploadListItem > div {
+    position: relative;
+}
+
+#kendoUiMobileApp .km-listview li input[type=file] {
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin: 0;
+    color: transparent;
+    opacity: 0;
+    cursor: pointer;
+}
+
+#kendoUiMobileApp .file-upload-name {
+    display: block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 100%;
+}
+
+::-webkit-file-upload-button {
+    cursor: pointer;
+}
+
+
+/*Start Multiple Selection Field*/
+
+#kendoUiMobileApp .multiple-select-item label {
+    margin: 0 0 0 0.2em;
+    padding: 0.4em 0 0.4em 1.7rem;
+    font-size: 1rem;
+}
+
+#kendoUiMobileApp.km-app li .editableListItem .multiple-select-item label > span,
+#kendoUiMobileApp .multiple-select-modal-window .multiple-select-item label > span {
+    width: 100%;
+    display: block;
+}
+
+#kendoUiMobileApp .multiple-select-item .editableListItem.km-label-above > div:first-child {
+    margin-bottom: 0.5em;
+}
+
+#kendoUiMobileApp .km-list .multiple-select-item input[type=checkbox],
+#kendoUiMobileApp .multiple-select-modal-window .multiple-select-item input[type=checkbox] {
+    width: 1.3rem;
+    height: 1.3rem;
+    top: 0.4em;
+    left: 3px;
+    font-size: 0.8rem;
+}
+
+#kendoUiMobileApp .multiple-select-modal-window .multiple-select-item input[type=checkbox] {
+    -webkit-appearance: none;
+    position: absolute;
+}
+
+#kendoUiMobileApp .km-button.link {
+    border: 0;
+    background-color: transparent;
+    padding: 0;
+    font-size: 1.1em;
+}
+
+#kendoUiMobileApp .multiple-select-list {
+    margin-bottom: 0.5rem;
+}
+
+#kendoUiMobileApp .multiple-select-modal-window .km-content {
+    padding: 1.5rem 1rem;
+}
+
+#kendoUiMobileApp .multiple-select-modal-window .km-content .km-scroll-container {
+    display: flex;
+    flex-flow: column nowrap;
+    height: 100%;
+}
+
+#kendoUiMobileApp .multiple-select-modal-window .multiple-select-item-content {
+    margin-bottom: 2rem;
+    overflow: hidden;
+    overflow-y: auto;
+    flex: 1;
+    padding-top: 0.5rem;
+}
+
+#kendoUiMobileApp .multiple-select-modal-window .multiple-select-item-buttons {
+    text-align: right;
+    flex: none;
+}
+
+#kendoUiMobileApp .multiple-select-modal-window .multiple-select-item-buttons a:first-child {
+    margin-right: 1.5rem;
+}
+
+#kendoUiMobileApp .km-shim {
+    background: transparent;
+}
+
+#kendoUiMobileApp .multiple-select-modal-window.km-modalview {
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.4);
+    border-radius: 3px;
+}
+
+#kendoUiMobileApp .km-modalview-wrapper {
+    position: fixed !important;
+    top: 10%;
+    left: 10%;
+    right: 10%;
+    bottom: 10%;
+    width: auto;
+    height: auto;
+}
+
+
+/*Flat overrides*/
+
+#kendoUiMobileApp.km-flat .multiple-select-modal-window .multiple-select-item label {
+    padding-left: 2rem;
+}
+
+#kendoUiMobileApp.km-flat .km-list .multiple-select-item input[type=checkbox],
+#kendoUiMobileApp.km-flat .multiple-select-modal-window .multiple-select-item input[type=checkbox] {
+    top: 0.9rem;
+}
+
+#kendoUiMobileApp.km-flat .multiple-select-modal-window .multiple-select-item input[type=checkbox] {
+    left: 0;
+}
+
+
+/*End Multiple Selection Field*/
 
 
 /* START_CUSTOM_CODE_kendoUiMobileApp */

@@ -14,19 +14,21 @@ app.authenticationView = kendo.observable({
 
         signinRedirect = 'coffeeShopsLocation',
         rememberKey = 'sitefinityDataProvider_authData_authenticationViewModel',
-        init = function(error) {
+        init = function(error, result) {
+            $('.status').text('');
+
             if (error) {
                 if (error.message) {
-                    alert(error.message);
+                    $('.status').text(error.message);
                 }
                 try {
                     var err = JSON.parse(error.responseText);
                     if (err) {
                         if (err.error) {
                             if (err.error.innererror && err.error.innererror.message) {
-                                alert(err.error.innererror.message);
+                                $('.status').text(err.error.innererror.message);
                             } else if (err.error.message) {
-                                alert(err.error.message);
+                                $('.status').text(err.error.message);
                             }
                         }
                     }
@@ -39,9 +41,12 @@ app.authenticationView = kendo.observable({
                 model = parent.authenticationViewModel;
 
             if (provider.setup && provider.setup.offlineStorage && !app.isOnline()) {
-                $('.offline').show().siblings().hide();
+                $('.signin-view', 'signup-view').hide();
+                $('.offline').show();
             } else {
-                $(activeView).show().siblings().hide();
+                $('.offline').hide();
+
+                $(activeView).show();
             }
 
             if (model && model.set) {
@@ -92,14 +97,22 @@ app.authenticationView = kendo.observable({
             displayName: '',
             email: '',
             password: '',
+            errorMessage: '',
             validateData: function(data) {
+                var model = authenticationViewModel;
+
+                if (!data.email && !data.password) {
+                    model.set('errorMessage', 'Missing credentials.');
+                    return false;
+                }
+
                 if (!data.email) {
-                    alert('Missing email');
+                    model.set('errorMessage', 'Missing username or email.');
                     return false;
                 }
 
                 if (!data.password) {
-                    alert('Missing password');
+                    model.set('errorMessage', 'Missing password.');
                     return false;
                 }
 

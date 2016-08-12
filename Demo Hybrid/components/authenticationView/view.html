@@ -3,7 +3,7 @@
         <form>
             <ul data-role="listview" data-style="inset">
                 <li>
-                    <label>Email
+                    <label>Username
                         <input type="email" data-bind="value: authenticationViewModel.email" required autofocus>
                     </label>
                 </li>
@@ -23,6 +23,8 @@
                 <a data-role="button" class="primary" data-bind="events: { click: authenticationViewModel.signin }">Sign In</a>
 
             </div>
+
+            <span class="status" data-bind="text: authenticationViewModel.errorMessage"></span>
         </form>
     </div>
     <div class="offline" align="center" style="display:none;">

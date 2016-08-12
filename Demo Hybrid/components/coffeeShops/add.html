@@ -1,8 +1,8 @@
-<div data-role="view" data-title="Add" data-model="app.coffeeShops.addItemViewModel" data-bind="events: { show: onShow }" id="coffeeShopsModelAddItemView">
+<div data-role="view" data-title="Add" data-model="app.coffeeShops.addItemViewModel" class="add-item-view" data-bind="events: { show: onShow }" id="coffeeShopsModelAddItemView">
     <header data-role="header">
         <div data-role="navbar" class="header-text">
             <span>Add a Shop</span>
-            <a data-role="backbutton" data-align="left">Cancel</a>
+            <a data-role="backbutton" data-align="left" data-bind="events: { click: onCancel }">Cancel</a>
             <a data-role="button" data-align="right" data-bind="events: { click: onSaveClick }">Save</a>
         </div>
     </header>
@@ -18,6 +18,7 @@
                         <span>Shop Name</span>
 
                         <input id="shopName" data-bind="value: addFormData.shopName" placeholder="Shop name ..." type="text">
+
                     </label>
 
                 </li>
@@ -28,6 +29,7 @@
                         <span>Shop Address</span>
 
                         <input id="shopAddresses" data-bind="value: addFormData.shopAddresses" placeholder="Shop address ..." type="text">
+
                     </label>
 
                 </li>
@@ -35,11 +37,35 @@
 
                     <label>
 
-                        <span>Label</span>
+                        <span>Open Now</span>
 
-                        <input id="openNowOrClosed" data-bind="value: addFormData.openNowOrClosed" type="checkbox">
+                        <input id="openNowOrClosed" data-bind="checked: addFormData.openNowOrClosed" type="checkbox">
+
                     </label>
 
+                </li>
+                <li class="form-content-item multiple-select-item">
+                    <script id="cofDrinksTemplate" type="text/x-kendo-template">
+                        <div class="multiple-select-item">
+
+                            <label class="km-listview-label">
+                                <input name="cofDrinks" class="km-icon km-check" type="checkbox" data-bind="value: Id, checked: addFormData.cofDrinks, namePrefixedId: Id" />
+
+                                <span data-bind="text: Drink"></span>
+
+                            </label>
+                        </div>
+                    </script>
+
+                    <div class="editableListItem">
+
+                        <div>Coffee Drinks</div>
+
+
+                        <div class="multiple-select-item-content" data-bind="source: coffeeDrinksDataSource" data-template="cofDrinksTemplate"></div>
+
+
+                    </div>
                 </li>
             </ul>
         </form>

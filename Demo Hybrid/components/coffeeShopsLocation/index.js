@@ -100,8 +100,15 @@ app.coffeeShopsLocation = kendo.observable({
                 }
             },
             serverFiltering: true,
+            serverSorting: true,
+            sort: {
+                field: 'CreatedAt',
+                dir: 'asc'
+            },
         },
         dataSource = new kendo.data.DataSource(dataSourceOptions),
+        // start data sources
+        // end data sources
         coffeeShopsLocationModel = kendo.observable({
             dataSource: dataSource,
             fixHierarchicalData: function(data) {
